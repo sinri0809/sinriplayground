@@ -1,14 +1,27 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { authService } from '../database';
 import AppRouter from './Router';
 
 
 function App() {
-  // const [loading, setLoadig] = useState(true);
-  const [loading, setLoadig] = useState(false);
+  let history = useHistory();
+  const [loading, setLoadig] = useState(true);
+  const [login, setLogin] = useState('');
 
+  const [user, setUser] = useState(null);
   useEffect(() => {
-
+    authService.onAuthStateChanged((user) => {
+      if(user){
+        setLogin(true);
+        setUser(user);
+      }else{
+        setLogin(false);
+      }
+      setLoadig(false);
+      history.push('/');
+    });
   }, [])
 
   return <>
@@ -17,7 +30,7 @@ function App() {
     ?
     "loading"
     :
-    <AppRouter />
+    <AppRouter login={login} user={user} />
   }
   </>
 }

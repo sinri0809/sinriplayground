@@ -1,5 +1,9 @@
-import { initializeApp } from "workbox-google-analytics";
+/* eslint-disable */
+
+import firebase from 'firebase/compat/app';
 import { getAuth } from "firebase/auth" 
+import { getFirestore } from "@firebase/firestore"
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -9,10 +13,15 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID
 };
+const bucketUrl = "gs://sinriplayground.appspot.com";
 
-console.log(firebaseConfig.storageBucket);
+const sinri = {
+  id: process.env.REACT_APP_OWNER
+}
 
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 const authService = getAuth(app);
+const connectDB = getFirestore(app);
+const fbStorage = getStorage(app, bucketUrl);
 
-export { authService };
+export { authService, sinri, connectDB, fbStorage };
