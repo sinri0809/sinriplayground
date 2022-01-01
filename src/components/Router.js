@@ -2,8 +2,8 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./Home";
 
-import Cont from "./Cont";
 import User from "./User";
+import ContUpload from "./ContUpload";
 
 
 const AppRouter = ({login, user}) => {
@@ -15,7 +15,7 @@ const AppRouter = ({login, user}) => {
       <User login={login} user={user}/>
     </Route>
     <Route exact path="/content">
-      <Cont />
+      <ContUpload />
     </Route>
   </Switch>
 }

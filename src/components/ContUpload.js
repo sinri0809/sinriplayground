@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { connectDB } from "../database";
 
 
-const Cont = () => {
+const ContUpload = () => {
   const today = new Date();
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -12,7 +12,7 @@ const Cont = () => {
   
   const contSection = ["글", "사진", "그림"];
   const [section, setSection] = useState(contSection[0]);
-  const firebaseRef = collection(connectDB, String(section));
+  const contentsRef = collection(connectDB, String(section));
   
   const onTitle = (event) => setTitle(event.target.value);
   const onText = (event) => setText(event.target.value);
@@ -22,35 +22,34 @@ const Cont = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     // getMonth : 0이 1월
-    addDoc(firebaseRef, {
+    addDoc(contentsRef, {
       title,
       text,
       attach,
       date: `${today.getUTCFullYear()}-${today.getUTCMonth()+1}-${today.getUTCDate()}, ${today.getUTCHours()}:${today.getUTCMinutes()}`
     }).then((fulfilled) => {
-      console.log(fulfilled)
+      // console.log(fulfilled)
       setTitle("");
       setText("");
       window.alert("ok")
     })
-
   }
 
 
-
   return <section>
+    <div className="container">
+
     <h3>게시글 업로드</h3>
 
     <ul>
       {
-        contSection.map((item, index) => {
-          return <li key={index}>
-            <button onClick={() => onClickSection(index)}>{item}</button>
-          </li>
-        })
+      contSection.map((item, index) => {
+        return <li key={index}>
+          <button onClick={() => onClickSection(index)}>{item}</button>
+        </li>
+      })
       }
     </ul>
-
     {section}
     <form onSubmit={onSubmit}>
       <input type="text" placeholder="제목" maxLength={20} required 
@@ -63,9 +62,10 @@ const Cont = () => {
       <input type="submit" resize="vertical" />
     </form>
 
+    </div>
 
   </section>
 }
 
 
-export default Cont;
+export default ContUpload;

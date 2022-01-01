@@ -2,7 +2,7 @@
 
 import firebase from 'firebase/compat/app';
 import { getAuth } from "firebase/auth" 
-import { getFirestore } from "@firebase/firestore"
+import { getFirestore, collection } from "@firebase/firestore"
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -23,5 +23,6 @@ const app = firebase.initializeApp(firebaseConfig);
 const authService = getAuth(app);
 const connectDB = getFirestore(app);
 const fbStorage = getStorage(app, bucketUrl);
+const commentRef = collection(connectDB, "commentHome");
 
-export { authService, sinri, connectDB, fbStorage };
+export { authService, sinri, connectDB, fbStorage, commentRef };

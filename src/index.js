@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './components/App';
+import './style/index.scss';
 // import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-
+// import { Provider } from 'react-redux';
 
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
+      {/* <Provider user = {user}>
+      </Provider> */}
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,0 +1,11 @@
+$bg: rgba(248, 245, 251, 1);
+
+@mixin flexbasic {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+@mixin container {
+  width: 800px;
+  margin: 0 auto;
+}

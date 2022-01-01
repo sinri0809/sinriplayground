@@ -1,62 +1,72 @@
 import React, { useState, useEffect} from "react";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
-import { connectDB } from "../database";
+import { addDoc, onSnapshot } from "firebase/firestore";
+import { commentRef } from "../database";
+import CommentCont from "./CommentCont";
+import "./../style/home.scss";
 
 
 const Comment = ({user}) => {
   const today = new Date();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  const onChangeComment = (event) => setComment(event.target.value);
-  const commentRef = collection(connectDB, "commentHome");
+  const onChangeComment = (event) => {
+    if(user.uid === "visitor"){
+      window.alert("please Log In")
+    }
+    setComment(event.target.value);
+  }
   
+  useEffect(() => {
+    // getDoc보다 snapshot으로 하면 실시간 업데이트 확인 가능 
+    onSnapshot(commentRef, (snaps) => {
+      // ID : comment 구분
+      const newComment = snaps.docs.map((doc) => ({id: doc.id, ...doc.data()}))
+      // newComment.sort((a,b) => {
+      //   const array_a = a.date.split(',')[0];
+      //   const array_b = b.date.split(',')[0];
+      //   if (array_a > array_b){
+      //     return -1
+      //   }else if(array_b > array_a){
+      //     return 1
+      //   }else{
+      //     return 0
+      //   }
+      // });
+      // 나중에 next page button 만들기
+      setComments(newComment.slice(0, 5));
+    });
+  }, []);
+
   const onSubmit = async (event) => {
     event.preventDefault();
-    await addDoc(commentRef, {
-      user: user.uid,
-      userName: user.displayName,
-      userProfile: user.photoURL,
-      comment,
-      date: `${today.getUTCFullYear()}-${today.getUTCMonth()+1}-${today.getUTCDate()}, ${today.getUTCHours()}:${today.getUTCMinutes()}`
-    });
+    if(user.uid === "visitor"){
+      window.alert("please Log In")
+    }else{
+      await addDoc(commentRef, {
+        user: user.uid,
+        userName: user.displayName,
+        userProfile: user.photoURL,
+        comment,
+        date: `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}, ${today.getHours()}:${today.getMinutes()}`
+      });
+    }
     setComment("");
   }
-  console.log(user)
-  useEffect(() => {
-    // getDoc보다 snapshot으로 
-    onSnapshot(commentRef, (snaps) => {
-      const newComment = snaps.docs.map((doc) => ({...doc.data()}))
-      setComments(newComment);
-    })
-    return () => {
-    }
-  }, [])
 
-  return <section>
-    <h3>Comment</h3>
-    here is comment to sinri
+  return <section className="comment">
+    <h3>Hello to sinri 😀</h3>
     <form onSubmit={onSubmit}>
       <label>comment: </label>
       <input type="text" onChange={onChangeComment} value={comment} required />
       <input type="submit" value="방명록" />
     </form>
-    <ul>
-      {
-        comments.map((item, index) => {
-          return <li key={index}>
-            {
-              item.userProfile?
-              <img src= {item.userProfile} width="50px" height="50px" alt="profile"/>
-              :
-              <p>.</p>
-            }
-            {item.userName}/
-            {item.comment}/
-            {item.date}
-          </li>
-        })
-      }
-    </ul>
+    
+    <ul>{
+    comments.map((cont, index) => {
+      return <li key={index} className="comment-list">
+        <CommentCont cont={cont} user={user} />
+      </li>
+    })}</ul>
   </section>
 }
 
