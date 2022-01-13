@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import firebase from 'firebase/compat/app';
 import { getAuth } from "firebase/auth" 
 import { getFirestore, collection } from "@firebase/firestore"
@@ -24,5 +22,6 @@ const authService = getAuth(app);
 const connectDB = getFirestore(app);
 const fbStorage = getStorage(app, bucketUrl);
 const commentRef = collection(connectDB, "commentHome");
+const footprint = collection(connectDB, "userFootprint")
 
-export { authService, sinri, connectDB, fbStorage, commentRef };
+export { authService, sinri, connectDB, fbStorage, commentRef, footprint };
