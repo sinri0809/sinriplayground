@@ -1,9 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Home from "./Home";
-
-import User from "./User";
-import ContUpload from "./ContUpload";
+import Home from "./Router/Home";
+import User from "./Router/User";
+import ContUpload from "./Router/ContUpload";
 
 
 const AppRouter = ({login, user}) => {

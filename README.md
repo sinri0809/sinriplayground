@@ -2,5 +2,5 @@
 
 ##### PWA
 ##### React
-##### Redux
+<!-- ##### Redux -->
 ##### Firebase

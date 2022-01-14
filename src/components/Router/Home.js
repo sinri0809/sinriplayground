@@ -1,7 +1,6 @@
-/* eslint-disable */
 import React from 'react';
-import Comment from './Comment';
-import Contents from "./Contents";
+import Comment from './../Comment';
+import Contents from "./../Contents";
 
 
 const Home = ({user}) => {

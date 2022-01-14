@@ -1,6 +1,6 @@
-import Login from "./Login";
+import Login from "./../Login";
 import { deleteUser } from "firebase/auth";
-import { authService } from "../database";
+import { authService } from "../../database";
 
 
 const Logout = ({user}) => {

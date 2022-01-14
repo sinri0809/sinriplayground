@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
-import { connectDB } from "../database";
+import { connectDB } from "../../database";
 
 
 const ContUpload = () => {

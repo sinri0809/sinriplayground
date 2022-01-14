@@ -15,7 +15,8 @@ a {
 img {
   vertical-align: middle;
 }
-button {
+button,
+input[type="submit"] {
   padding: 0.5em 1em;
   border: none;
   border-radius: 1em;
@@ -23,7 +24,10 @@ button {
   cursor: pointer;
   background-color: $bg;
   &:hover {
-    text-decoration: underline;
+    // text-decoration: underline;
+    color: whitesmoke;
+    background-color: $point;
+    transition: all 0.3s;
   }
 }
 ul,
@@ -39,8 +43,13 @@ body {
   font-size: 1.6rem;
   line-height: 1;
   letter-spacing: 0;
-  color: #221b27;
+  word-spacing: 1px;
+  color: $font;
   background-color: lavender;
+}
+p::selection {
+  color: whitesmoke;
+  background-color: $point;
 }
 .wrap {
   width: 100%;
@@ -68,8 +77,6 @@ header {
     div {
       a {
         display: inline-block;
-      }
-      img {
         margin-left: 1em;
       }
     }
