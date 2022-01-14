@@ -1,6 +1,6 @@
-import Login from "./Login";
+import Login from "./../Login";
 import { deleteUser } from "firebase/auth";
-import { authService } from "../database";
+import { authService } from "../../database";
 
 
 const Logout = ({user}) => {
@@ -8,7 +8,8 @@ const Logout = ({user}) => {
     event.preventDefault();
     const confirm = window.confirm("Singed Out?");
     if(confirm){
-      authService.signOut();
+      let result = authService.signOut();
+      console.log(result);
     }
   }
   const onDeleteAccount = (event) => {
@@ -19,10 +20,10 @@ const Logout = ({user}) => {
       }
     }
   }
-  return <>
+  return <div className="container">
     <button onClick={onLogout}>Logout</button>
     <button onClick={onDeleteAccount}>Delete Account</button>
-  </>
+  </div>
 }
 
 const User = ({login, user}) => {

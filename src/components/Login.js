@@ -25,11 +25,9 @@ const Login = () => {
     event.preventDefault();
     try{
       if(newAccount){
-        const response = await createUserWithEmailAndPassword(authService, email, password);
-        console.log(response)
+        await createUserWithEmailAndPassword(authService, email, password);
       }else{
-        const response = await signInWithEmailAndPassword(authService, email, password);
-        console.log(response)
+        await signInWithEmailAndPassword(authService, email, password);
       }
     }catch{
       throw new Error("you failed Login")
@@ -38,10 +36,9 @@ const Login = () => {
 
   const onEmail = (e) => setEmail(e.target.value);
   const onPassword = (e) => setPassword(e.target.value);
-
   const toggleState = () => setNewAccount((prev) => !prev);
 
-  return <>
+  return <div className="container">
     <form onSubmit={onSubmit}>
       <input type="email" placeholder="your email" required 
         onChange={onEmail}
@@ -71,7 +68,7 @@ const Login = () => {
       <button value="Google" onClick={onLoginSNS}>Login with Google</button>
       <button value="Github" onClick={onLoginSNS}>Login with Github</button>
     </div>
-  </>
+  </div>
 }
 
 export default Login;
