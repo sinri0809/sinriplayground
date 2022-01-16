@@ -3,6 +3,10 @@ import { createUserWithEmailAndPassword,
   GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { authService } from "../database";
 
+/**
+ * * newAccount : 계정 상태
+ * 
+ */
 const Login = () => {
   const [newAccount, setNewAccount] = useState(true);
 
@@ -17,8 +21,7 @@ const Login = () => {
     }else if(value === "Github"){
       provider = new GithubAuthProvider();
     }
-    const signIn = await signInWithPopup(authService, provider);
-    console.log(signIn);
+    await signInWithPopup(authService, provider);
   }
 
   const onSubmit = async (event) => {

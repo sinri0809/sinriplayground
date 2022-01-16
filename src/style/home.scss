@@ -1,11 +1,11 @@
 @import "common";
 
+// comment area
 .comment {
   position: relative;
   padding: 1em 0;
   margin-bottom: 2rem;
   h3 {
-    padding: 2em 0;
     font-weight: 500;
   }
   form {
@@ -19,9 +19,12 @@
       height: 2.5em;
       border: none;
       padding: 0.5em 0.5em 0.5em 1em;
-      border-radius: 0.5em;
+      border-radius: 1em;
       color: gray;
       word-spacing: 1px;
+      &:focus {
+        border: 2px solid $point;
+      }
     }
   }
   button {
@@ -33,32 +36,59 @@
 }
 
 .comment-list,
-.comment-profile,
-.comment-detail {
-  @include flexbasic();
-  padding: 0.5em 0;
-}
 .comment-detail,
-.comment-profile {
-  width: 50%;
+.comment-edit {
+  @include flexbasic();
+  padding: 0.25em 0;
 }
-.comment-profile {
-  .profile-name {
-    width: 15%;
-    padding: 0 0.5em;
-    opacity: 0.5;
+.comment-list {
+  .comment-detail {
+    width: 70%;
+    .profile-name {
+      width: 15%;
+      padding: 0 0.5em;
+      opacity: 0.5;
+    }
+    input[type="text"] {
+      font-size: 1.2rem;
+      width: 100%;
+      height: 2.5em;
+      border: none;
+      padding: 0.5em;
+      border-radius: 1em;
+      color: $font;
+      opacity: 0.8;
+      background-color: rgba(255, 255, 255, 0.8);
+      &:focus {
+        opacity: 1;
+      }
+    }
+    p {
+      padding-left: 0.5em;
+    }
   }
-}
-.comment-detail {
-  position: relative;
-  justify-content: flex-end;
-  p {
-    text-align: right;
+  .comment-edit {
+    position: relative;
     width: 30%;
-    opacity: 0.5;
+    justify-content: flex-end;
+    p {
+      text-align: right;
+      width: 50%;
+      opacity: 0.5;
+    }
+    button {
+      padding: 0.5em;
+      color: rgba(131, 131, 131, 0.467);
+      background-color: rgba($color: #000000, $alpha: 0);
+      &:hover {
+        background-color: rgba($color: #000000, $alpha: 0);
+        color: $point;
+      }
+    }
   }
 }
 
+// content area
 .miniwindow {
   position: fixed;
   top: 0;
@@ -71,37 +101,55 @@
   align-items: center;
   .miniwindow-container {
     @include container();
+    height: 50%;
     padding: 2em;
     background-color: whitesmoke;
     border-radius: 2em;
+    .btn-top {
+      @include flexbasic();
+      justify-content: flex-end;
+    }
+    h4 {
+      padding: 1em 0;
+    }
+    .text-area {
+      margin-bottom: 1rem;
+      height: 70%;
+      overflow: scroll;
+    }
   }
 }
-main {
-  .main-title {
+.contents {
+  .contents-title {
     padding: 1em 0;
     h2 {
       padding: 1em 0;
     }
   }
-}
-.contents {
-  display: flex;
-  // justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  button {
-    width: 20%;
-    padding: 2%;
-    margin: 1em 1em;
-    border: 1px solid whitesmoke;
-    border-radius: 1em;
-    > * {
-      padding: 0.5em 0;
-    }
-    > p:last-child {
-      padding: 0;
-      font-size: 1.2rem;
-      opacity: 0.5;
+  .contents-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    button {
+      width: 20%;
+      padding: 2%;
+      margin: 1em 0.5em;
+      border-radius: 1em;
+      &:hover {
+        box-shadow: 0px 5px 5px 1px rgba(195, 195, 195, 0.8);
+        background-color: white;
+        transform: translateY(-5px);
+        color: $font;
+      }
+      > * {
+        padding: 0.5em 0;
+      }
+      p:last-child {
+        padding: 0;
+        font-size: 1.2rem;
+        opacity: 0.5;
+      }
     }
   }
 }
@@ -117,24 +165,5 @@ main {
       color: whitesmoke;
       background-color: $point;
     }
-  }
-}
-
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 10rem;
-  .loading {
-    animation: rotating 1s linear 0.3s infinite;
-  }
-}
-@keyframes rotating {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(1turn);
   }
 }
