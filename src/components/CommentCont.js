@@ -2,6 +2,11 @@ import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { connectDB } from "../database";
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+
 
 const Img = styled.img`
   width: 40px;
@@ -28,7 +33,7 @@ const CommentCont = ({cont, user}) => {
   const commentDoc = doc(connectDB, "commentHome", id);
   
   useEffect(() => {
-    setNewComment("수정할 내용을 입력하세요");
+    // setNewComment("수정할 내용을 입력하세요");
   }, [])
 
   const onEditComment = (input) => {
@@ -54,28 +59,29 @@ const CommentCont = ({cont, user}) => {
   }
 
   return <>
-  <div className="comment-profile">
+  <div className="comment-detail">
     <Img src= {userProfile} alt="profile"/>
     <p className="profile-name">{userName}</p>
     {
-      edit ? <input type="text" onClick={()=>setNewComment("")} value={newComment} onChange={onEditComment}/>
+      edit ? <input type="text" onClick={()=>setNewComment("")} 
+      value={newComment} onChange={onEditComment} placeholder={comment}/>
       :<p>{comment}</p>
     }
   </div>
 
-  <div className="comment-detail">
+  <div className="comment-edit">
     {
       owner && edit &&
       <div>
-        <button onClick={onUpload}>확인</button>
-        <button onClick={() => setEdit(false)}>취소</button>
+        <button onClick={onUpload}><CheckRoundedIcon /></button>
+        <button onClick={() => setEdit(false)}><CloseRoundedIcon /></button>
       </div>
     }
     {
       owner && !edit && 
       <div>
-        <button onClick={() => setEdit(true)}>수정</button>
-        <button onClick={onDelete}>삭제</button>
+        <button onClick={() => setEdit(true)}><EditRoundedIcon /></button>
+        <button onClick={onDelete}><DeleteRoundedIcon /></button>
       </div>
     }
     <p>{date}</p>

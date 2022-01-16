@@ -1,18 +1,28 @@
+/* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './components/App';
 import './style/index.scss';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-// import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+
+import userReducer from './user';
+
+const store = configureStore({
+  reducer: {
+    user: userReducer,
+  },
+});
 
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
-      {/* <Provider user = {user}>
-      </Provider> */}
+      <Provider store = {store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

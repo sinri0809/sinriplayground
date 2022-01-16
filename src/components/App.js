@@ -5,55 +5,68 @@ import AppRouter from './Router';
 import styled from 'styled-components';
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogin } from '../user';
+
 const Profile = styled.img`
-  width: 5rem;
-  height: 5rem;
+  width: 4.5rem;
+  height: 4.5rem;
   border-radius: 50%;
   background-color: white;
 `;
-
 /**
  * * loading: 로딩 중일 때 true
  * * login: 로그인 상태를 Router -> User로 전달
  * * user: user정보를 전함 (로그인이 안돼있으면 default로 전달) 
+ * @onAuthStateChanged : 계정 정보가 변할때 그 값을 반환하는 함수
  */
-const tempImg = "https://firebasestorage.googleapis.com/v0/b/sinriplayground.appspot.com/o/temp_profile.png?alt=media&token=8db0cfe8-2592-4f1e-acbf-0bd44e237bec";
 
 function App() {
+  const state = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   let history = useHistory();
   const [loading, setLoadig] = useState(true);
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState({});
-
+  
   useEffect(() => {
-    authService.onAuthStateChanged((user) => {
-      if(user){
+    authService.onAuthStateChanged((userInfo) => {
+      if(userInfo){
         setLogin(true);
-        user.photoURL ??= tempImg
-        user.displayName ??= "사용자"
-        setUser(user);
+        const { uid, displayName, photoURL } = userInfo;
+        //type: 'user/userLogin', 
+        dispatch(userLogin({
+          send:"confirm",
+          login: true,
+          uid, displayName, photoURL
+        }));
       }else{
         setLogin(false);
         // default user 설정
-        setUser({
-          uid : "visitor",
-        })
       }
       setLoadig(false);
       history.push('/');
     });
   }, []);
 
+  useEffect(() => {
+    setUser(state);
+  }, [state])
+  
   return <>
     <header>
     <div className="container">
       <nav>
         <mark>
-          <Link to="/">🏠50 shades of sinri</Link>
+          <Link to="/" title='home'>🏠</Link>
         </mark>
-
         <div>
-          <a target="_blank" href="https://comic.naver.com/challenge/list?titleId=788320" rel="naverwebtoon noreferrer">취준생 만화</a>
+          <button>🎼</button>
+          <a target="_blank" className='go-cartoon'
+            href="https://comic.naver.com/challenge/list?titleId=788320" rel="naverwebtoon noreferrer">
+            🎬
+          </a>
           {
             user.uid === sinri.id && // 관리자 일 때,
             <Link to="/content">upload</Link>
@@ -65,10 +78,7 @@ function App() {
           </Link>
         </div>
       </nav>
-      <div className='header-maindoor'>
-        <button>🌙night</button>
-        <p>gallery</p>
-      </div>
+      <h1>Gallery</h1>
     </div>
     </header>
     {
@@ -80,7 +90,7 @@ function App() {
       </div>
       </>
       :
-      <AppRouter login={login} user={user} />
+      <AppRouter user={user} />
     }
   </>
 }
