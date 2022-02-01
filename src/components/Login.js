@@ -5,7 +5,6 @@ import { authService } from "../database";
 
 /**
  * * newAccount : 계정 상태
- * 
  */
 const Login = () => {
   const [newAccount, setNewAccount] = useState(true);

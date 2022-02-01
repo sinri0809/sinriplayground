@@ -1,6 +1,6 @@
 {
   "name": "sinriplayground",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.7.1",
@@ -60,10 +60,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-<<<<<<< HEAD
-  },
-  "homepage": "https://sinri0809.github.io/sinriplayground/"
-=======
   }
->>>>>>> deploy2
 }

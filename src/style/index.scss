@@ -9,9 +9,6 @@
 }
 a {
   text-decoration: none;
-  &:hover {
-    // text-decoration: underline;
-  }
 }
 img {
   vertical-align: middle;
@@ -52,8 +49,10 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 // header
 header {
+  @include fonttheme();
   // position: fixed;
   // width: 100%;
   background-color: $bg;

@@ -22,6 +22,7 @@ const authService = getAuth(app);
 const connectDB = getFirestore(app);
 const fbStorage = getStorage(app, bucketUrl);
 const commentRef = collection(connectDB, "commentHome");
+const contentsRef = collection(connectDB, "글");
 const footprint = collection(connectDB, "userFootprint")
 
-export { authService, sinri, connectDB, fbStorage, commentRef, footprint };
+export { authService, sinri, connectDB, fbStorage, commentRef, footprint, contentsRef };

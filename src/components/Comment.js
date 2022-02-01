@@ -1,12 +1,14 @@
 import React, { useState, useEffect} from "react";
-import { addDoc, onSnapshot } from "firebase/firestore";
+
+import { useSelector } from "react-redux";
 import { commentRef } from "../database";
+import { addDoc, onSnapshot } from "firebase/firestore";
+
 import CommentCont from "./CommentCont";
-import "./../style/home.scss";
+
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import { useSelector } from "react-redux";
-
+import "./../style/home.scss";
 /**
  * * today : 오늘 날짜, 게시물 작성시 들어감
  * * comment : 작성하고 있는 댓글(방명록)이 들어감
@@ -40,8 +42,6 @@ const Comment = () => {
     )
   }
   
-  // console.log("viewed Comment"); // 이거 4번이나 찍힘...
-
   useEffect(() => {
     /**
      * ? getDoc()보다 onSnapshot()을 사용할 경우 실시간으로 상태를 확인한다.

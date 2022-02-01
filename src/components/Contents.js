@@ -1,27 +1,50 @@
-import { collection, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { connectDB } from '../database';
-// import './../style/home.scss';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getContent } from './../user'
+import MiniWindow from './MiniWindow';
+
 
 const Contents = () => {
-  const [contents, setContents] = useState([]); // unmounted error
-  const contentsRef = collection(connectDB, "글");
-  
-  const [miniWindow, setMiniWindow] = useState(false);
-  const [miniContent, setMiniContent] = useState({});
-  
-  console.log(miniWindow);
-  // const [editMode, setEditmode] = useState(false);
+  console.log("contents.js is called");
+  const state = useSelector((state) => state.contents);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    onSnapshot(contentsRef, (snaps) => setContents(snaps.docs.map((doc) => ({id: doc.id, ...doc.data()}))));
-    // return () => setContents(contents);
-  }, []);
+  const [contents, setContents] = useState([]); 
+  
 
-  const onClickWindow = (index) => {
-    setMiniWindow(true);
-    const {title, text, date} = contents[index];
-    setMiniContent({title, text, date});
+  useEffect(()=> {
+    dispatch(getContent({do: "ss"}));
+    // setContents(state);
+
+  },[])
+
+
+  const [detail, setDetail] = useState({open: false, });
+
+  const onClickWindow = (open, index) => {
+    if(open){
+      const {title, text, date} = contents[index];
+      const newDetail = {
+        ...detail,
+        open,
+        index,
+        title,
+        text, 
+        date
+      }
+      setDetail(newDetail);
+      return;
+    }
+    
+    else{
+      const newDetail = {
+        ...detail,
+        open
+      }
+      setDetail(newDetail);
+      return;
+    }
   }
 
   return <section className='contents'>
@@ -34,7 +57,8 @@ const Contents = () => {
     {
       contents.map((item, index) => {
         const {title, text, date} = item;
-        return <button key={index} onClick={()=>onClickWindow(index)}>
+
+        return <button key={index} onClick={()=>onClickWindow(true, index)}>
           <h4>{title}</h4>
           <p>{text}</p>
           <p>{date}</p>
@@ -43,22 +67,8 @@ const Contents = () => {
     }
     </div>
 
-    {
-      miniWindow &&
-      <div className='miniwindow'>
-        <div className='miniwindow-container'>
-          <div className='btn-top'>
-            <button>수정</button>
-            <button onClick={()=>setMiniWindow(false)}>닫기</button>
-          </div>
-          <h4>{miniContent.title}</h4>
-          <div className='text-area'>
-            <p>{miniContent.text}</p>
-          </div>
-          <p>{miniContent.date}</p>
-        </div>
-      </div>
-    }
+    <MiniWindow detail={detail} onClickWindow={onClickWindow}/>
+
   </section>
 }
 
