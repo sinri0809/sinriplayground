@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { connectDB } from "../data/database";
 
 
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+// import EditRoundedIcon from '@mui/icons-material/EditRounded';
+// import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+// import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+// import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 
 
 /**
@@ -68,15 +68,23 @@ const CommentCont = ({ cont, user }) => {
       {
         owner && edit &&
         <div>
-          <button onClick={onUpload}><CheckRoundedIcon /></button>
-          <button onClick={() => setEdit(false)}><CloseRoundedIcon /></button>
+          <button onClick={onUpload}>
+            {/* <CheckRoundedIcon /> */}
+          </button>
+          <button onClick={() => setEdit(false)}>
+            {/* <CloseRoundedIcon /> */}
+          </button>
         </div>
       }
       {
         owner && !edit &&
         <div>
-          <button onClick={() => setEdit(true)}><EditRoundedIcon /></button>
-          <button onClick={onDelete}><DeleteRoundedIcon /></button>
+          <button onClick={() => setEdit(true)}>
+            {/* <EditRoundedIcon /> */}
+          </button>
+          <button onClick={onDelete}>
+            {/* <DeleteRoundedIcon /> */}
+          </button>
         </div>
       }
       <p>{date}</p>

@@ -1,28 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-import { contentsRef } from './database';
 import { getDocs } from 'firebase/firestore';
 
+// FiresotreDatabase > content_prose
+import { contentsRef } from './database';
 
-// const setContent = async () => {
-//   console.log('loading');
-//   const conts = await getDocs(contentsRef);
-//   const arr = conts.docs.map((doc)=>doc.data());
-//   getContent(arr);
-// }
 
+// * 게시물 정보
 const contentsSlice = createSlice({
   name: 'contents',
-  initialState:{
+  initialState: {
+    title: '제목',
+    content: '내용',
+    date: '0000-00-00'
   },
   reducers: {
-    getContent(state, action){
-      
+    getContent(state, action) {
+
+      // ! 작성하다가 만거 같음.
       const setContent = () => {
         getDocs(contentsRef)
-        .then((conts)=> {
-          const arr = conts.docs.map((doc)=>doc.data())
-        })
+          .then((conts) => {
+            const arr = conts.docs.map((doc) => doc.data())
+          })
 
       }
 
@@ -32,7 +31,6 @@ const contentsSlice = createSlice({
     },
   }
 })
-
 
 // * 사용자 정보 
 const userSlice = createSlice({
@@ -45,7 +43,7 @@ const userSlice = createSlice({
   },
   reducers: {
     setLogin(state, action) {
-      const { uid, displayName, photoURL} = action.payload;
+      const { uid, displayName, photoURL } = action.payload;
       return {
         ...state,
         uid, displayName, photoURL
@@ -64,9 +62,10 @@ const userSlice = createSlice({
   }
 })
 
-
+// * reducer
 export const userReducer = userSlice.reducer;
 export const contentsReducer = contentsSlice.reducer;
 
+// * actions
 export const { setLogin, todoToggled, todosLoading } = userSlice.actions;
 export const { getContent } = contentsSlice.actions;

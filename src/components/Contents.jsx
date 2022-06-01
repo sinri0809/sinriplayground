@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from 'react';
+/**
+ * sinriplayground의 컨텐츠가 업로드 되는 곳 
+ */
+import React, { useState } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { getContent } from './../data/user';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { getContent } from './../data/user';
 
 import MiniWindow from './MiniWindow';
 
 
-
 const Contents = () => {
   console.log("contents.js is called");
-  const dispatch = useDispatch();
 
+  // const dispatch = useDispatch();
+
+  // const state = useSelector((state) => state.contents);
   const [contents, setContents] = useState([]);
 
-  const state = useSelector((state) => state.contents);
 
-  useEffect(() => {
-    dispatch(getContent());
-    // console.log(state);
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getContent());
+  //   // console.log(state);
+  // }, [])
 
 
   const [detail, setDetail] = useState({ open: false, });
@@ -53,6 +56,7 @@ const Contents = () => {
       <h2>Etude, Life</h2>
       <p>글, 메모, 기록</p>
     </div>
+
     <div className="contents-container">
       {
         contents.map((item, index) => {

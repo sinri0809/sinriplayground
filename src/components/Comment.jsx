@@ -6,8 +6,8 @@ import { addDoc, onSnapshot } from "firebase/firestore";
 
 import CommentCont from "./CommentCont";
 
-import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+// import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
+// import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 /**
  * * today : 오늘 날짜, 게시물 작성시 들어감
  * * comment : 작성하고 있는 댓글(방명록)이 들어감
@@ -125,13 +125,13 @@ const Comment = () => {
     <div className="pagination-container">
       <ol className="pagination">
         <li><button onClick={() => onArrowClick("left")} value={"left"} >
-          <ArrowBackIosRoundedIcon />
+          {/* <ArrowBackIosRoundedIcon /> */}
         </button></li>
 
         {pageNumbers}
 
         <li><button onClick={() => onArrowClick("right")} value={"right"}>
-          <ArrowForwardIosRoundedIcon />
+          {/* <ArrowForwardIosRoundedIcon /> */}
         </button></li>
       </ol>
     </div>

@@ -7,8 +7,7 @@ import Header from './components/common/Header';
 import AppRouter from './components/Router';
 // import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
 
-
-export default function App() {
+function App() {
   const [loading, setLoadig] = useState(true);
 
   const dispatch = useDispatch();
@@ -26,8 +25,15 @@ export default function App() {
   }, [dispatch]);
 
   return (<>
-    {loading && <div>loading</div>}
-    <Header />
-    <AppRouter />
+    {
+      loading
+        ? <div>loading</div>
+        : <>
+          <Header />
+          <AppRouter />
+        </>
+    }
   </>)
 }
+
+export default App;

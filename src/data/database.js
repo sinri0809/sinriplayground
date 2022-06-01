@@ -25,8 +25,9 @@ const authService = getAuth(app);
 const connectDB = getFirestore(app);
 const fbStorage = getStorage(app, bucketUrl);
 const commentRef = collection(connectDB, "commentHome");
-const footprint = collection(connectDB, "userFootprint")
-const contentsRef = collection(connectDB, "글");
+const footprint = collection(connectDB, "userFootprint");
+// 수필
+const contentsRef = collection(connectDB, "content_prose");
 
 export {
   authService,
