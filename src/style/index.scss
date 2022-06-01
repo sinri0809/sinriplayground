@@ -1,4 +1,4 @@
-@import "common";
+@import "common", "variables", "home", "upload";
 
 // Initializing
 * {
@@ -66,9 +66,11 @@ header {
     mark {
       background-color: lavender;
     }
+    
     div {
       .go-cartoon {
         position: relative;
+
         &::after {
           content: "만화 보러가기";
           position: absolute;
@@ -83,6 +85,7 @@ header {
           opacity: 0;
           transform: translateX(-10px);
         }
+
         &:hover::after {
           opacity: 1;
           visibility: visible;
@@ -121,10 +124,12 @@ header {
   justify-content: center;
   align-items: center;
   height: 10rem;
+
   .loading {
     animation: rotating 1s linear 0.3s infinite;
   }
 }
+
 @keyframes rotating {
   from {
     transform: rotate(0);
